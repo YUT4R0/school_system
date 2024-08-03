@@ -28,33 +28,37 @@ public class School {
   public void run() {
     while (running) {
       System.out.println("<==================== MENU ====================>");
-      System.out.println("0. Exit program;");
-      System.out.println("1. Cadastrar Student");
-      System.out.println("2. Cadastrar Professor");
-      System.out.println("3. Cadastrar Course");
-      System.out.println("4. Matricular Professor em Course (ministrar)");
-      System.out.println("5. Matricular Student em Course");
-      System.out.println("6. Desmatricular Student de Course");
-      System.out.println("7. Listar students de um Course");
-      System.out.println("8. Listar courses de um ProfessorCourse");
+      System.out.println("1. Register student;");
+      System.out.println("2. Register professor;");
+      System.out.println("3. Register course;");
+      System.out.println("4. Enroll a professor in a course;");
+      System.out.println("5. Enroll a student in a course;");
+      System.out.println("6. Disenroll a student from a course;");
+      System.out.println("7. List students from a course;");
+      System.out.println("8. List courses from a professor;");
       System.out.println("9. Register cardID for a student by name;");
-      System.out.println("10. Listar courses de um Student Course CardID");
-      System.out.println("11. Remover cardIDs de um Student CardID nome");
+      System.out.println("10. List courses from a student;");
+      System.out.println("11. Remove cardID from a student;");
+      System.out.println("12. List all students;");
+      System.out.println("13. List all courses;");
+      System.out.println("14. List all professors;");
+      System.out.println("15. List all CardIDs;");
+      System.out.println("[X] Type any another number to exit;");
 
       int cmd = Integer.parseInt(sc.readLine("Set command: "));
       switch (cmd) {
         case 1:
-          String name = sc.readLine("Student name: ");
-          int age = Integer.parseInt(sc.readLine("Student age: "));
+          String name = sc.readLine("Set student name: ");
+          int age = Integer.parseInt(sc.readLine("Set student age: "));
           students.add(new Student(name, age));
-          System.out.println("Student cadastrado!");
+          System.out.println("Student registered!");
           break;
 
         case 2:
-          String profName = sc.readLine("Prof name: ");
-          int profAge = Integer.parseInt(sc.readLine("Prof age: "));
+          String profName = sc.readLine("Set prof name: ");
+          int profAge = Integer.parseInt(sc.readLine("Set prof age: "));
           professors.add(new Professor(profName, profAge));
-          System.out.println("Professor cadastrado!");
+          System.out.println("Professor registered!");
           break;
 
         case 3:
@@ -81,7 +85,7 @@ public class School {
           }
 
           if (!flag)
-            System.out.println("Professor ou Course nao encontrado, operação negada");
+            System.out.println("Set professor ou Course nao encontrado, operação negada");
 
           break;
 
@@ -170,7 +174,7 @@ public class School {
           }
 
           if (!flag)
-            System.out.println("Professor nao encontrado, operação negada");
+            System.out.println("Set professor nao encontrado, operação negada");
 
           break;
 
@@ -187,7 +191,7 @@ public class School {
             }
           }
           if (!flag)
-            System.out.println("Student não encontrado ou ja cadastrado, operação negada");
+            System.out.println("Student não encontrado ou ja registered, operação negada");
 
           break;
 
@@ -223,6 +227,52 @@ public class School {
           }
           if (!flag)
             System.out.println("Student nem cartão tem, operação negada");
+
+          break;
+        
+        case 12:
+          String op = sc.readLine("Show only students with cardID? (y/n): ").toLowerCase();
+
+          if (students.size() > 0) {
+            System.out.println("<----- Students (with cardID) ----->");
+            for(Student _student : students) {
+              if (op.equals("y")) {
+                if (_student.getCardID() != null)
+                  System.out.println("- " + _student.getName() + ";");
+              } else
+                System.out.println("- " + _student.getName() + ";");
+            }
+          } else
+            System.out.println("No students registered!");
+          
+          break;
+          
+        case 13:
+          if (courses.size() > 0) {
+            System.out.println("<----- Courses ----->");
+            for(Course _course : courses)
+              System.out.println("- " + _course.getName() + ";");
+          } else
+            System.out.println("No courses registered!");
+
+          break;
+
+        case 14:
+          if (professors.size() > 0) {
+            System.out.println("<----- Professors ----->");
+            for(Professor _professor : professors)
+              System.out.println("- " + _professor.getName() + ";");
+          } else
+            System.out.println("No professors registered!");
+
+          break;
+        case 15:
+          if (cardIDs.size() > 0) {
+            System.out.println("<----- Cards ----->");
+            for(CardID _cardID : cardIDs)
+              System.out.println("- UUID: " + _cardID.getCode() + ";");
+          } else
+            System.out.println("No cards registered!");
 
           break;
 
